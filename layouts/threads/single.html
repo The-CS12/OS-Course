@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+    {{ partial "head.html" . }}
+    <body class="mrg0">
+        <section class="wrp">
+        {{ partial "header.html" . }}
+            <hr class="hr">
+            <hr class="hr">
+            {{ partial "breadcrumb.html" . }}
+             <div data-uid="{{ path.Base .File.Dir  }}-{{ .File.BaseFileName }}"
+                    data-read="false" class="msg-info">
+                {{ .Site.Params.thread.read_message }}
+             </div>
+            <main>
+                {{ if .Params.image }}
+                <img src="{{.Params.image}}" alt="تصویر: اوپس 502" title="{{.Title}}" class="disp-B timg">
+                {{ end }}
+                <article class="thread-detail fl" style="flex-direction: column; gap: 15px;"
+                    data-uid="{{ path.Base .File.Dir  }}-{{ .File.BaseFileName }}"
+                    data-read="false"
+                >
+                 <div class="h fl aliI-CE jusCo-SP">
+                    <div class="fl aliI-CE" style="gap: 15px;">
+                        <div 
+                            class="por zin5 clickable" 
+                            data-tooltip-text="پروفایل نویسنده"  
+                            data-modal
+                            data-modal-type="image"
+                            data-src="{{ .Site.Params.author.avatar }}"
+                            data-modal-title="در مورد نویسنده"
+                            data-modal-text="{{ .Site.Params.author.bio }}"
+                            data-modal-social='{{ .Site.Params.author.social.social_links | jsonify }}'
+                       >
+                            <img src="{{ .Site.Params.author.avatar }}" alt="اوپس: تصویر 502" title="تصویر پروفایل نویسنده" class="disp-B borOK" width="50" height="50" />
+                        </div>
+                        <div class="x">
+                            <b class="disp-B"> {{ .Site.Params.author.name }} </b>
+                            <span class="disp-B">{{ partial "jalali.html" . }}</span>
+                        </div>
+                    </div>
+                    <div class="svg-cont por zin5 clickable"
+                    data-tooltip-text = "به اشتراک بگذار"
+                    data-modal
+                    data-modal-type="share"
+                    data-src="{{ .RelPermalink | absURL }}"
+                    data-modal-title="به اشتراک بگذارید"
+                    data-modal-text="{{ replace $.Site.Params.thread.share_text "{title}" .Title }}">
+
+                    <svg viewBox="0 0 512 512">
+                        <use href="#_SHARE_ICON" xlink:href="#_SHARE_ICON"></use>
+                    </svg>
+                </div>
+                </div>
+                <div class="mdm">
+                    <h1 class="tit mrg0 por">
+                        {{.Title}}
+                        <a href="{{.RelPermalink}}" title="{{.Title}}" class="farhana">
+                            <strong class="sonly">
+                                آموزش و یادگیری {{.Title}} به صورت رایگان
+                            </strong>
+                        </a>
+                    </h1>
+                    <div class="content">
+                        {{.Content}}
+                    </div>
+                </div>
+
+                {{ if .Params.contributors }}
+                <div class="contributors">
+                    <h4 class="contributors-title">مشارکت‌کنندگان</h4>
+                    <div class="contributors-list">
+                        {{ range .Params.contributors }}
+                        <div class="contributor-item">
+                            <div class="contributor-avatar">
+                                {{ substr .name 0 1 }}
+                            </div>
+                            <span class="contributor-name">{{ .name }}</span>
+                            {{ if .role }}
+                            <span class="contributor-role">({{ .role }})</span>
+                            {{ end }}
+                            {{ if .github }}
+                            <a href="{{ .github }}" target="_blank" class="contributor-link" title="گیت‌هاب {{ .name }}">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                    <use href="#_GITHUB_ICON" xlink:href="#_GITHUB_ICON"></use>
+                                </svg>
+                            </a>
+                            {{ end }}
+                        </div>
+                        {{ end }}
+                    </div>
+                </div>
+                {{ end }}
+
+                <div class="h f fl aliI-CE jusCo-SP">
+                    <div class="x">
+                        <b class="disp-B"> شماره تِرِد : </b>
+                        <span class="disp-B">شماره {{.Params.order}} از {{ len .CurrentSection.Pages }}</span>
+                    </div>
+
+                    <div class="svg-cont por zin5 clickable"
+                    data-tooltip-text = "لایسنس"
+                    data-modal
+                    data-modal-type="info"
+                    data-modal-title="لایسنس"
+                    data-modal-text="{{ replace $.Site.Params.license.text "{license}" .Params.license }}">
+
+                    <svg viewBox="0 0 512 512">
+                        <use href="#_LICENSE_ICON" xlink:href="#_LICENSE_ICON"></use>
+                    </svg>
+                </div>
+                </div>
+                </article>
+
+                   <div class="ph fl aliI-CE jusCo-SP">
+                    <button class="but disp-B"
+                        id="mark-read-btn"
+                        data-uid="{{ path.Base .File.Dir  }}-{{ .File.BaseFileName }}"
+                        data-mark-text="{{ .Site.Params.thread.mark_read_text }}"
+                        data-unmark-text="{{ .Site.Params.thread.marked_read_text }}"
+                        data-congrats-title="{{ .Site.Params.thread.congrats_title }}"
+                        data-congrats-text="{{ .Site.Params.thread.congrats_text }}"
+                        data-congrats-image="{{ .Site.Params.thread.congrats_image }}"
+                    >
+                         {{ .Site.Params.thread.mark_read_text }}
+                    </button>
+                </div>
+
+                <div class="github-links">
+                    <div class="fl aliI-CE jusCo-SP">
+                        <a href="https://github.com/{{ .Site.Params.github.repo }}/edit/{{ .Site.Params.github.branch }}/{{ .File.Path }}" 
+                           target="_blank" 
+                           class="github-link github-edit"
+                           title="ویرایش این صفحه در گیت‌هاب">
+                            <svg viewBox="0 0 24 24" width="18" height="18">
+                                <use href="#_EDIT_ICON" xlink:href="#_EDIT_ICON"></use>
+                            </svg>
+                            <span>ویرایش مطلب</span>
+                        </a>
+                        <a href="https://github.com/{{ .Site.Params.github.repo }}/blob/{{ .Site.Params.github.branch }}/{{ .File.Path }}" 
+                           target="_blank" 
+                           class="github-link github-view"
+                           title="مشاهده منبع در گیت‌هاب">
+                            <svg viewBox="0 0 24 24" width="18" height="18">
+                                <use href="#_GITHUB_ICON" xlink:href="#_GITHUB_ICON"></use>
+                            </svg>
+                            <span>مشاهده کد منبع</span>
+                        </a>
+                    </div>
+                    <div class="github-contributors" id="github-contributors" style="display:none;"
+                        data-repo="{{ .Site.Params.github.repo }}"
+                        data-branch="{{ .Site.Params.github.branch }}"
+                        data-filepath="{{ .File.Path }}">
+                        <h4 class="contributors-title">
+                            <svg viewBox="0 0 24 24" width="18" height="18" style="vertical-align: middle;">
+                                <use href="#_GITHUB_ICON" xlink:href="#_GITHUB_ICON"></use>
+                            </svg>
+                            مشارکت‌کنندگان گیت‌هاب
+                        </h4>
+                        <div class="contributors-list" id="contributors-list"></div>
+                    </div>
+                </div>
+
+                
+
+                {{ if or .PrevInSection .NextInSection }}
+                    <div class="ph fl aliI-CE jusCo-SP">
+                        {{ with .PrevInSection }}
+                            <a href="{{.RelPermalink}}" title="تِرِد قبل" data-tooltip-text="{{.Title}}"> تِرِد قبل</a>
+                        {{ end }}
+                        {{ with .NextInSection }}
+                        <a href="{{.RelPermalink}}" title="تِرِد بعد" class="disp-B" data-tooltip-text="{{.Title}}"> تِرِد بعد</a>
+                        {{ end }}
+                    </div>
+                {{ end }}
+
+                {{ if .Site.Params.giscus.repoId }}
+                <div class="giscus-section">
+                    <h4 class="contributors-title">نظرات</h4>
+                    <div class="giscus-container">
+                        <script src="https://giscus.app/client.js"
+                            data-repo="{{ .Site.Params.giscus.repo }}"
+                            data-repo-id="{{ .Site.Params.giscus.repoId }}"
+                            data-category="{{ .Site.Params.giscus.category }}"
+                            data-category-id="{{ .Site.Params.giscus.categoryId }}"
+                            data-mapping="pathname"
+                            data-strict="0"
+                            data-reactions-enabled="1"
+                            data-emit-metadata="0"
+                            data-input-position="top"
+                            data-theme="light"
+                            data-lang="fa"
+                            data-loading="lazy"
+                            crossorigin="anonymous"
+                            async>
+                        </script>
+                    </div>
+                </div>
+                {{ end }}
+
+            </main>
+        </section>
+        {{ partial "svgs.html" . }}
+        {{ partial "modal.html" . }}
+        {{ if .Site.Params.dark_mode.enabled }}<script src="/assets/js/darkmode.js"></script>{{ end }}
+        <script src="/assets/js/isread.js"></script>
+        <script src="/assets/js/modal.js"></script>
+        <script src="/assets/js/github-contributors.js"></script>
+    </body>
+</html>

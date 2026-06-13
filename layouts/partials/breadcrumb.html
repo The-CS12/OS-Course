@@ -1,0 +1,28 @@
+{{ if not .IsHome }}
+<nav class="breadcrumb" aria-label="برد کرامبز">
+
+    <ul class="breadcrumb-list">
+        <li class="breadcrumb-item">
+            <a href="/" class="breadcrumb-link breadcrumb-home" title="خانه">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                    <use href="#_HOME_ICON" xlink:href="#_HOME_ICON"></use>
+                </svg>
+            </a>
+            <span class="breadcrumb-separator">/</span>
+        </li>
+
+        {{ range .Ancestors.Reverse }}
+            {{ if and .Title (not .IsHome) }}
+            <li class="breadcrumb-item">
+                <a href="{{ .RelPermalink }}" class="breadcrumb-link">{{ if eq .RelPermalink "/threads/" }}لیست ترد ها{{ else }}{{ .Title }}{{ end }}</a>
+                <span class="breadcrumb-separator">/</span>
+            </li>
+            {{ end }}
+        {{ end }}
+
+        <li class="breadcrumb-item breadcrumb-current">
+            {{ .Title }}
+        </li>
+    </ul>
+</nav>
+{{ end }}

@@ -1,0 +1,14 @@
+<div class="c-box"
+data-modal
+data-modal-type='{{ .Get "type" }}'
+{{ with .Get "src" }}data-src="{{ . }}"{{ end }}
+{{ with .Get "title" }}data-modal-title="{{ . }}"{{ end }}
+{{ with .Get "text" }}data-modal-text="{{ . }}"{{ end }}
+>
+<div class="svg-cont">
+    <svg>
+        <use href="#_VIDEO_ICON" xlink:href="#_VIDEO_ICON"></use>
+    </svg>
+</div>
+
+</div>

@@ -1,0 +1,29 @@
+<div id="modal-root" class="modal-backdrop hidden">
+
+  <div class="modal-box">
+
+    <button class="modal-close" id="modal-close">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+           stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+
+    <h2 id="modal-title"></h2>
+    <div id="modal-media"></div>
+    <p id="modal-text"></p>
+    <div id="modal-social" class="modal-social"></div>
+    <div id="modal-link-preview" class="modal-link-preview hidden">
+        <a id="modal-link-url" class="modal-link-url" href="#" target="_blank"></a>
+    </div>
+     <button id="modal-copy" class="modal-copy hidden"
+      data-copy-text="{{ .Site.Params.modal.copy_link_text }}"
+      data-copied-text="{{ .Site.Params.modal.copied_text }}"
+    >
+      {{ .Site.Params.modal.copy_link_text }}
+    </button>
+  </div>
+
+</div>

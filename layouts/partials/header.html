@@ -1,0 +1,47 @@
+<header class="fl aliI-CE jusCo-SP">
+            {{ if eq .Kind "section" }}
+            <h1 class="mrg0 logo-txt por">
+                {{ .Site.Title }}
+                <a href="/" title="{{ .Site.Title }}" class="farhana">
+                    <span class="sonly">{{ .Site.Title }}</span>
+                </a>
+            </h1>
+             {{ else }}
+             <h4 class="mrg0 logo-txt por">
+                {{ .Site.Title }}
+                <a href="/threads" title="{{ .Site.Title }}" class="farhana">
+                    <span class="sonly">{{ .Site.Title }}</span>
+                </a>
+            </h4>
+            {{ end }}
+            <div class="fl aliI-CE" style="gap: 15px;">
+                {{ if .Site.Params.dark_mode.enabled }}
+                <div class="svg-cont por dark-toggle" id="theme-toggle" data-tooltip-text="تغییر حالت نمایش" role="button" tabindex="0">
+                    <svg id="icon-moon" viewBox="0 0 24 24" style="display:none;">
+                        <use href="#_MOON_ICON" xlink:href="#_MOON_ICON"></use>
+                    </svg>
+                    <svg id="icon-sun" viewBox="0 0 24 24" style="display:none;">
+                        <use href="#_SUN_ICON" xlink:href="#_SUN_ICON"></use>
+                    </svg>
+                </div>
+                {{ end }}
+                <div class="svg-cont por" data-tooltip-text="دونیت کنید">
+                    <svg viewBox="0 0 320 512">
+                        <use href="#_DONATE_ICON" xlink:href="#_DONATE_ICON"></use>
+                    </svg>
+                    <a href="{{ .Site.Params.author.donate_url }}" target="_blank" title="دونیت کنید" class="farhana">
+                        <span class="sonly">دونیت کنید.</span>
+                    </a>
+                </div>
+                 {{ if eq .Kind "page" }}
+                    <div class="svg-cont por" data-tooltip-text="بازگشت به صفحه قبل">
+                    <svg  viewBox="0 0 512 512">
+                        <use href="#_BACK_ICON" xlink:href="#_BACK_ICON"></use>
+                    </svg>
+                    <a href="/threads" title="بازگشت" class="farhana">
+                        <span class="sonly">بازگشت به صفحه لیست تِرِد ها</span>
+                    </a>
+                </div>
+                {{ end }}
+            </div>
+        </header>

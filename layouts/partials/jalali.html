@@ -1,0 +1,30 @@
+{{ $t := .Date }}
+
+{{ $gy := $t.Year }}
+{{ $gm := $t.Month }}
+{{ $gd := $t.Day }}
+
+{{ $g_d_m := slice 0 31 59 90 120 151 181 212 243 273 304 334 }}
+
+{{ if gt $gm 2 }}
+  {{ if and (eq (mod $gy 4) 0) (or (ne (mod $gy 100) 0) (eq (mod $gy 400) 0)) }}
+    {{ $gd = add $gd 1 }}
+  {{ end }}
+{{ end }}
+
+{{ $days := add (index $g_d_m (sub $gm 1)) $gd }}
+
+{{ $jy := 0 }}
+
+{{ if gt $days 79 }}
+  {{ $jy = sub $gy 621 }}
+  {{ $days = sub $days 79 }}
+{{ else }}
+  {{ $jy = sub $gy 622 }}
+  {{ $days = add $days 286 }}
+{{ end }}
+
+{{ $jm := div (sub $days 1) 31 }}
+{{ $jd := mod (sub $days 1) 31 }}
+
+{{ add $jy 0 }}/{{ add $jm 1 }}/{{ add $jd 1 }}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+    {{ partial "head.html" . }}
+<body class="mrg0">
+    <section class="wrp">
+       {{ partial "header.html" . }}
+
+        <hr class="hr">
+        <hr class="hr">
+        {{ partial "breadcrumb.html" . }}
+        <main>
+
+
+
+{{ $threads := .Pages.ByParam "order" }}
+{{ $paginator := .Paginate $threads $.Site.Params.thread.threads_per_page }}
+
+<div class="thread-group" data-status="{{ .Params.group_status }}">
+    <div class="h fl aliI-CE jusCo-SP">
+        <h3 class="mrg0 mft">{{ .Title }}</h3>
+        <div class="svg-cont clickable"
+        data-tooltip-text="وضعیت و تعداد تِرِد ها"
+                                data-modal
+                         data-modal-title="وضعیت"
+                     data-modal-text='این گروه از تِرِد ها {{ if eq .Params.group_status "done" }}تمام شده{{ else }}در حال اجرا{{ end }} و تعداد تِرِد ها تا الان {{ len .Pages }} تا {{ if eq .Params.group_status "done" }}هست{{ else }}هست {{ end }}'
+                     >
+            <svg viewBox="0 0 34.77 35">
+                <use href="#_DOTS_ICON" xlink:href="#_DOTS_ICON"></use>
+            </svg>
+        </div>
+    </div>
+
+    <div class="section-status">
+        <span class="section-status-text">بخش "{{ .Title }}" شامل {{ len .Pages }} ترد است.</span>
+        <span class="status-badge status-{{ .Params.group_status }}">
+            {{ if eq .Params.group_status "done" }}تموم شده{{ else }}در حال اجرا{{ end }}
+        </span>
+    </div>
+
+    <ul class="m ul">
+
+             {{ range $paginator.Pages }}
+        <li class="fl aliI-CE thread-item por" data-read="false" data-uid="{{ path.Base .File.Dir  }}-{{ .File.BaseFileName }}">
+
+            <div class="thread-number-ini">
+                {{ printf "%02d" .Params.order }}
+            </div>
+
+            <h2 class="mrg0">{{ .Title }}</h2>
+
+            <div class="actions fl aliI-CE">
+                <div 
+                        class="por zin5 clickable" 
+                        data-tooltip-text="پروفایل نویسنده"  
+                        data-modal
+                        data-modal-type="image"
+                        data-src="{{ .Site.Params.author.avatar }}"
+                        data-modal-title="در مورد نویسنده"
+                        data-modal-text="{{ .Site.Params.author.bio }}"
+                        data-modal-social='{{ .Site.Params.author.social.social_links | jsonify }}'
+                   >
+                    <img src="{{ .Site.Params.author.avatar }}" alt="اوپس: تصویر 502" title="تصویر پروفایل نویسنده" class="disp-B borOK" width="35" height="35" />
+                </div>
+                <div class="svg-cont por zin5 clickable"
+                    data-tooltip-text = "به اشتراک بگذار"
+                    data-modal
+                    data-modal-type="share"
+                    data-src="{{ .Site.BaseURL }}{{ .RelPermalink }}"
+                    data-modal-title="به اشتراک بگذارید"
+                    data-modal-text="{{ replace $.Site.Params.thread.share_text "{title}" .Title }}">
+
+                    <svg viewBox="0 0 512 512">
+                        <use href="#_SHARE_ICON" xlink:href="#_SHARE_ICON"></use>
+                    </svg>
+                </div>
+            </div>
+
+            <a href="{{ .RelPermalink }}" title="{{ .Title }}" class="farhana">
+                <span class="sonly">لینک ورود به تِرِد</span>
+            </a>
+
+        </li>
+        {{ end }}
+
+    </ul>
+</div>
+        </main>
+        {{if or $paginator.HasPrev $paginator.HasNext}}
+        <div class="ph fl aliI-CE jusCo-SP mrg-T15">
+        {{ if $paginator.HasPrev }}
+            <a href="{{ $paginator.Prev.URL }}" title="صفحه قبل" class="disp-B">قبلی</a>
+        {{ end }}
+
+        {{ if $paginator.HasNext }}
+            <a href="{{ $paginator.Next.URL }}" title="صفحه بعد" class="disp-B">بعدی</a>
+        {{ end }}
+        </div>
+        {{end}}
+    </section>
+
+
+
+{{ partial "svgs.html" . }}
+{{ partial "modal.html" . }}
+{{ if .Site.Params.dark_mode.enabled }}<script src="/assets/js/darkmode.js"></script>{{ end }}
+<script src="/assets/js/modal.js"></script>
+<script src="/assets/js/isread.js"></script>
+</body>
+</html>

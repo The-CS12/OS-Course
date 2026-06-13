@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+{{ partial "head.html" . }}
+<body class="mrg0">
+
+<section class="banner">
+    <div class="wrapper fl">
+        <div>
+            <h1 class="mrg0 txt-C">{{ .Site.Params.banner.title }}</h1>
+
+            <hr class="hr">
+            <hr class="hr">
+
+            <p class="mrg0 info">
+                <img src="{{ .Site.Params.banner.image }}" alt="تصویر thread">
+
+                <strong class="disp-B">{{ .Site.Params.banner.section_title }}</strong>
+
+                <span class="disp-B mrg-T10">
+                     {{ .Site.Params.banner.description }}
+                </span>
+
+                <hr class="hr">
+                <hr class="hr">
+
+                {{ $count := len (site.GetPage "section" "threads").RegularPagesRecursive }}
+
+                <div class="plmc">
+                    {{ if eq $count 0 }}
+
+                    <a 
+                        class="CTAbutton disabled disp-B cli" 
+                        data-modal
+                        data-modal-title="{{ .Site.Params.modal.empty_title }}"
+                        data-modal-text="{{ .Site.Params.modal.empty_text }}"
+                        >
+                        {{ .Site.Params.banner.cta_text }}
+                    </a>
+                    {{ else }}
+
+                        <a href="/threads/" class="CTAbutton disp-B">{{ .Site.Params.banner.cta_text }}</a>
+                    {{ end }}
+                </div>
+            </p>
+        </div>
+
+        <hr class="hr">
+
+        <section class="fl aliI-CE jusCo-SP mrg-T15" id="_bannerFooter">
+
+            <div class="fl">
+                <img src="{{ .Site.Params.author.avatar }}" alt="تصویر پروفایل" class="disp-B borOK" width="45" height="45">
+                <p class="mrg0">
+                    <span class="disp-B">نوشته شده توسط</span>
+                    <b>{{ .Site.Params.author.name }}</b>
+                </p>
+            </div>
+
+            <div>
+                <span class="h disp-B">تعداد تِرِدها:</span>
+                <b>{{ len (site.GetPage "section" "threads").RegularPagesRecursive }}</b>
+            </div>
+
+        </section>
+
+    </div>
+</section>
+{{ partial "modal.html" . }}
+{{ partial "svgs.html" . }}
+{{ if .Site.Params.dark_mode.enabled }}<script src="/assets/js/darkmode.js"></script>{{ end }}
+<script src="/assets/js/modal.js"></script>
+</body>
+</html>
