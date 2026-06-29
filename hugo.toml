@@ -126,7 +126,7 @@ repo = "The-CS12/os-course"
 repo = "The-CS12/ntb-theme"
 >>>>>>> upstream/main
 # برنچ اصلی رو هم بزارید...
-branch = "content"
+branch = "main"
 
 # ===========================================
 # تنظیمات سیستم نظرات
