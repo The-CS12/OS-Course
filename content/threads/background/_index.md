@@ -6,7 +6,7 @@ title = "Background"
 # done -> پایان
 # running -> در حال اجرا
 
-group_status = "running"
+group_status = "done"
 
 # وزن هر فصل هر چه مقدار کمتری باشه بالا تر نمایش داده میشه...
 # مثلا برای فصل 1 باید 1 باشد و برای فصل 2 باید 2 و ...
