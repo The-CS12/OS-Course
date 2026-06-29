@@ -2,7 +2,7 @@
 title: دسترسی مستقیم به مموری
 date: 2026-06-23T08:22:55+03:30
 draft: false
-order: 8
+order: 9
 description: تو این ترد با DMA یا Direct memory access آشنا میشیم.
 license: CC BY-SA 4.0
 image: ""

@@ -2,7 +2,7 @@
 title: حافظه نهان (کش)
 date: 2026-06-22T10:18:51+03:30
 draft: false
-order: 7
+order: 8
 description: تو این ترد با کش مموری ها آشنا میشیم.
 license: CC BY-SA 4.0
 image: cache-memory-01.png
